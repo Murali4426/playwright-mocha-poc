@@ -1,0 +1,291 @@
+{
+  "stats": {
+    "suites": 2,
+    "tests": 6,
+    "passes": 6,
+    "pending": 0,
+    "failures": 0,
+    "start": "2020-07-15T04:54:08.278Z",
+    "end": "2020-07-15T04:54:49.862Z",
+    "duration": 41584,
+    "testsRegistered": 6,
+    "passPercent": 100,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "2f81eb75-2008-409a-8cc1-8a56c9069803",
+      "title": "",
+      "fullFile": "",
+      "file": "",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "d45682c2-06f3-421b-8ab5-66dcb1ab9851",
+          "title": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/sauna",
+          "fullFile": "C:\\Manjeet\\Docs\\PlayWright\\playwright-mocha-poc\\test\\booking.sauna.spec.js",
+          "file": "\\test\\booking.sauna.spec.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook",
+              "fullTitle": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/sauna \"before all\" hook",
+              "timedOut": false,
+              "duration": 4929,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "browser = await playwright[\"chromium\"].launch({ headless: false });\ncontext = await browser.newContext({\n  viewport: {\n    width: 1366, \n    height: 768, \n  },\n});\ncontext.clearCookies();\npage = await context.newPage(BASE_URL);\nbookingPage = new BookingPage(page, context)",
+              "err": {},
+              "uuid": "18fc835f-2edc-487e-a055-d21f8409b2c7",
+              "parentUUID": "d45682c2-06f3-421b-8ab5-66dcb1ab9851",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook",
+              "fullTitle": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/sauna \"after all\" hook",
+              "timedOut": false,
+              "duration": 1557,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await page.screenshot({\n  path: `${this.currentTest.title.replace(/\\s+/g, \"_\")}.png`,\n});\nawait browser.close();",
+              "err": {},
+              "uuid": "54510000-35cc-41b9-8378-f9ea195402a9",
+              "parentUUID": "d45682c2-06f3-421b-8ab5-66dcb1ab9851",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Given I am on Booking.com webpage",
+              "fullTitle": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/sauna Given I am on Booking.com webpage",
+              "timedOut": false,
+              "duration": 47,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await bookingPage.waitForLogo();",
+              "err": {},
+              "uuid": "f1581917-c0f8-4dee-b0ed-a47fb76b2fa3",
+              "parentUUID": "d45682c2-06f3-421b-8ab5-66dcb1ab9851",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "When I search for hotels in Limerick",
+              "fullTitle": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/sauna When I search for hotels in Limerick",
+              "timedOut": false,
+              "duration": 13492,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await bookingPage.waitForDestination()\nawait bookingPage.waitForCheckInDate()\nawait bookingPage.waitForCheckOutDate()\nawait bookingPage.enterLocation(\"Limerick\")\nconst checkInDate = await bookingPage.addMonths(3)\nawait bookingPage.fillInCheckInDate(checkInDate) // by months\nawait bookingPage.fillInCheckOutDate(checkInDate,1) // by days\nawait bookingPage.clickSubmit()\nawait page.waitFor(5000);\nawait bookingPage.SelectCheckBox('Poupular filters', 'Hotels')\nawait page.waitFor(5000);\nawait bookingPage.SelectCheckBox('Fun things to do', 'Sauna')\nawait page.waitFor(1000);",
+              "err": {},
+              "uuid": "ecb3683d-9372-4cd9-9796-fc9f9ebb1a0f",
+              "parentUUID": "d45682c2-06f3-421b-8ab5-66dcb1ab9851",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Then I see a list of hotels for my selection on the results table",
+              "fullTitle": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/sauna Then I see a list of hotels for my selection on the results table",
+              "timedOut": false,
+              "duration": 1164,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await bookingPage.waitForResultsHeader()\nconst resultsHeader = await bookingPage.getResultsTableHeader()\n// verify Search Results Table Heading\nexpect(resultsHeader ).to.equal('Limerick: 5 properties found');\n// Verify a list of hotels from the search results table\nawait bookingPage.waitForSearchResultsTable()\nconst hotelArray = await bookingPage.getSearchResults()\nconsole.info('hotelArray', hotelArray)\nexpect(hotelArray.some(resultTableHotelName => resultTableHotelName.includes('Limerick Strand Hotel')), ' Limerick Strand Hotel not found').to.be.true;\nexpect(hotelArray.some(resultTableHotelName => resultTableHotelName.includes('Pery\\'s Hotel')), ' Pery\\'s Hotel not found').to.be.true;\nexpect(\n  hotelArray\n  ).not.to.be.containing('George Limerick Hotel', ' should not contain George Limerick Hotel')",
+              "err": {},
+              "uuid": "b7985a84-cdc5-4a8d-b24b-7c0500676da3",
+              "parentUUID": "d45682c2-06f3-421b-8ab5-66dcb1ab9851",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "f1581917-c0f8-4dee-b0ed-a47fb76b2fa3",
+            "ecb3683d-9372-4cd9-9796-fc9f9ebb1a0f",
+            "b7985a84-cdc5-4a8d-b24b-7c0500676da3"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 14703,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 50000
+        },
+        {
+          "uuid": "d4abd4d4-aa33-4300-b0bf-bc3abc9abf55",
+          "title": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/star rating",
+          "fullFile": "C:\\Manjeet\\Docs\\PlayWright\\playwright-mocha-poc\\test\\booking.star.spec.js",
+          "file": "\\test\\booking.star.spec.js",
+          "beforeHooks": [
+            {
+              "title": "\"before all\" hook",
+              "fullTitle": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/star rating \"before all\" hook",
+              "timedOut": false,
+              "duration": 4289,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "browser = await playwright[\"chromium\"].launch({ headless: false });\ncontext = await browser.newContext({\n  viewport: {\n    width: 1366, \n    height: 768, \n  },\n});\npage = await context.newPage(BASE_URL);\ncontext.clearCookies();\nbookingPage = new BookingPage(page, context)",
+              "err": {},
+              "uuid": "ba773b3c-9ff7-43e2-ac5a-c5ca9438b22f",
+              "parentUUID": "d4abd4d4-aa33-4300-b0bf-bc3abc9abf55",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "afterHooks": [
+            {
+              "title": "\"after all\" hook",
+              "fullTitle": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/star rating \"after all\" hook",
+              "timedOut": false,
+              "duration": 1707,
+              "state": null,
+              "speed": null,
+              "pass": false,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await page.screenshot({\n  path: `${this.currentTest.title.replace(/\\s+/g, \"_\")}.png`,\n});\nawait browser.close();",
+              "err": {},
+              "uuid": "e7b77287-b5aa-4ff7-b6ca-873bed718868",
+              "parentUUID": "d4abd4d4-aa33-4300-b0bf-bc3abc9abf55",
+              "isHook": true,
+              "skipped": false
+            }
+          ],
+          "tests": [
+            {
+              "title": "Given I am on Booking.com webpage",
+              "fullTitle": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/star rating Given I am on Booking.com webpage",
+              "timedOut": false,
+              "duration": 179,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await bookingPage.waitForLogo();",
+              "err": {},
+              "uuid": "b11da397-bb13-49cf-a0cc-8b78cb2ea09b",
+              "parentUUID": "d4abd4d4-aa33-4300-b0bf-bc3abc9abf55",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "When I search for hotels in Limerick",
+              "fullTitle": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/star rating When I search for hotels in Limerick",
+              "timedOut": false,
+              "duration": 13278,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await bookingPage.waitForDestination()\nawait bookingPage.waitForCheckInDate()\nawait bookingPage.waitForCheckOutDate()\nawait bookingPage.enterLocation(\"Limerick\")\nconst checkInDate = await bookingPage.addMonths(3)\nawait bookingPage.fillInCheckInDate(checkInDate) // by months\nawait bookingPage.fillInCheckOutDate(checkInDate,1) // by days\nawait bookingPage.clickSubmit()\nawait page.waitFor(5000);\nawait bookingPage.SelectCheckBox('Poupular filters', 'Hotels')\nawait page.waitFor(5000);\nawait bookingPage.SelectCheckBox('Star rating', '5 stars')\nawait page.waitFor(1000);",
+              "err": {},
+              "uuid": "6f0bfdb9-83c7-44df-9ea7-d3eb6e0096a2",
+              "parentUUID": "d4abd4d4-aa33-4300-b0bf-bc3abc9abf55",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Then I see a list of hotels for my selection on the results table",
+              "fullTitle": "booking.com - search hotels 3 months ahread from today for 2 adults/1 night/star rating Then I see a list of hotels for my selection on the results table",
+              "timedOut": false,
+              "duration": 933,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "await bookingPage.waitForResultsHeader()\nconst resultsHeader = await bookingPage.getResultsTableHeader()\n// verify Search Results Table Heading\nexpect(resultsHeader ).to.equal('Limerick: 1 property found');\n// Verify a list of hotels from the search results table\nawait bookingPage.waitForSearchResultsTable()\nconst hotelArray = await bookingPage.getSearchResults()\nconsole.info('hotelArray', hotelArray)\nexpect(hotelArray.some(resultTableHotelName => resultTableHotelName.includes('The Savoy Hotel')), ' The Savoy Hotel not found').to.be.true;\n\nexpect(\n  hotelArray\n  ).not.to.be.containing('George Limerick Hotel', ' should not contain George Limerick Hotel')",
+              "err": {},
+              "uuid": "9635630e-2c49-4749-ba62-39ad31938323",
+              "parentUUID": "d4abd4d4-aa33-4300-b0bf-bc3abc9abf55",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "b11da397-bb13-49cf-a0cc-8b78cb2ea09b",
+            "6f0bfdb9-83c7-44df-9ea7-d3eb6e0096a2",
+            "9635630e-2c49-4749-ba62-39ad31938323"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 14390,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 50000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 50000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "6.1.1"
+    },
+    "marge": {
+      "options": null,
+      "version": "5.1.0"
+    }
+  }
+}
