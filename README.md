@@ -8,9 +8,9 @@ This has been used along with `mocha` and `chai` to automate `E2E Tests`
 There is 2 playwright scripts in this repository:
 
 
-* `test/booking.sauna.js` - script that goes to http://booking.com. It searchs hotels 3 months from today for 2 adults/1 night/Sauna
+* `test/booking.sauna.spec.js` - script that goes to http://booking.com. It searchs hotels 3 months from today for 2 adults/1 night/Sauna
 
-* `test/booking.star.js` - Script that goes to http://booking.com. It searchs hotels 3 months from today for 2 adults/1 night/5 Star 
+* `test/booking.star.spec.js` - Script that goes to http://booking.com. It searchs hotels 3 months from today for 2 adults/1 night/5 Star 
 
 
 In order to execute scripts, simply run on:
